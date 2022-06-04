@@ -44,14 +44,14 @@ void OxKybot_MOTOR_command::setTimer(TimeoutCallback *t)
 {
   securityTimer = t;
 }
+
 void OxKybot_MOTOR_command::setPosition(std_msgs::String p)
 {
   free(this->setPositionData);
-  free(this->setPositionData_string);
   free(this->setPositionPtr);
   this->setPositionData = new char[100];
   this->setPositionData_string = String(p.data);
-  strcpy(this->setPositionData, sthis->etPositionData_string.c_str());
+  strcpy(this->setPositionData, this->setPositionData_string.c_str());
   this->setPositionPtr = strtok(this->setPositionData, ",");
   this->position.poseX = atoi(this->setPositionPtr);
   this->setPositionPtr = strtok(NULL, ",");
@@ -77,44 +77,46 @@ void OxKybot_MOTOR_command::resetAngle()
 }
 void OxKybot_MOTOR_command::gotoAngle(int angle)
 {
+  
+	unsigned int gotoAngleD1;
+	unsigned int gotoAngleD2;
   this->actualAngle = this->imu_sensor.getBearing();
   logger.publish_arduino_log("MOTOR actual angle : "+ String(this->actualAngle) + " go to : "+String(angle));
-  this->gotoAngleD1 = (MAX_ANGLE + angle - this->actualAngle) % MAX_ANGLE;
-  this->gotoAngleD2 = (MAX_ANGLE + this->actualAngle - angle) % MAX_ANGLE;
-  if (!(this->gotoAngleD1 < DELAT_ANGLE && this->gotoAngleD2 < DELAT_ANGLE))
+  gotoAngleD1 = (MAX_ANGLE + angle - this->actualAngle) % MAX_ANGLE;
+  gotoAngleD2 = (MAX_ANGLE + this->actualAngle - angle) % MAX_ANGLE;
+  if (!(gotoAngleD1 < DELAT_ANGLE && gotoAngleD2 < DELAT_ANGLE))
   {
     
-    if (this->gotoAngleD1 < this->gotoAngleD2)
+    if (gotoAngleD1 < gotoAngleD2)
     {
       logger.publish_arduino_log("MOTOR turn left");
-      while (this->gotoAngleD1 > DELAT_ANGLE)
+      while (gotoAngleD1 > DELAT_ANGLE)
       {
         turn_left(SPEED_VALUE);
-        actualAngle = this->imu_sensor.getBearing();
-        this->gotoAngleD1 = (MAX_ANGLE + angle - actualAngle) % MAX_ANGLE;
-        this->gotoAngleD2 = (MAX_ANGLE + actualAngle - angle) % MAX_ANGLE;
+        this->actualAngle = this->imu_sensor.getBearing();
+        gotoAngleD1 = (MAX_ANGLE + angle - actualAngle) % MAX_ANGLE;
         wdt_reset();
       }
     }
     else
     {
       logger.publish_arduino_log("MOTOR turn right");
-      while (this->gotoAngleD2 > DELAT_ANGLE)
+      while (gotoAngleD2 > DELAT_ANGLE)
       {
         turn_right(SPEED_VALUE);
-        actualAngle = this->imu_sensor.getBearing();
-        this->gotoAngleD1 = (MAX_ANGLE + angle - actualAngle) % MAX_ANGLE;
-        this->gotoAngleD2 = (MAX_ANGLE + actualAngle - angle) % MAX_ANGLE;
+        this->actualAngle = this->imu_sensor.getBearing();
+        gotoAngleD2 = (MAX_ANGLE + actualAngle - angle) % MAX_ANGLE;
         wdt_reset();
       }
     }
     motorBrake();
-    logger.publish_arduino_log("MOTOR turn end");
+    this->logger.publish_arduino_log("MOTOR turn end");
   }
 }
 unsigned int OxKybot_MOTOR_command::getAngle()
 {
-  return this->imu_sensor.getBearing();
+  this->actualAngle = this->imu_sensor.getBearing();
+  return this->actualAngle;
 }
 void OxKybot_MOTOR_command::turn_left(int Speed)
 {

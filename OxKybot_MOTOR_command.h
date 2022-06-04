@@ -30,12 +30,10 @@ public:
 
 
 private:
-	char setPositionData;
+	unsigned int actualAngle;
+	char* setPositionData;
 	String setPositionData_string;
 	char *setPositionPtr;
-	unsigned int actualAngle;
-	unsigned int gotoAngleD1;
-	unsigned int gotoAngleD2;
 	TimeoutCallback* securityTimer;
 	void motorL_Forward(int Speed);
 	void motorL_Backward(int Speed);
