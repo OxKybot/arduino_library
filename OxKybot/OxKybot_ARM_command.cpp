@@ -5,7 +5,22 @@ OxKybot_ARM_command::OxKybot_ARM_command()
 }
 void OxKybot_ARM_command::init()
 {
-  logger.publis_arduino_log("ARM int start");
+  logger.publish_arduino_log("ARM init start");
+
+  pinMode(AXIN1, OUTPUT);
+  pinMode(AXIN2, OUTPUT);
+  pinMode(AXENA, OUTPUT);
+  pinMode(AXIN4, OUTPUT);
+  pinMode(AXIN3, OUTPUT);
+  pinMode(AXENB, OUTPUT);
+
+  pinMode(DSIN1, OUTPUT);
+  pinMode(DSIN2, OUTPUT);
+  pinMode(DSENA, OUTPUT);
+  pinMode(DSIN4, OUTPUT);
+  pinMode(DSIN3, OUTPUT);
+  pinMode(DSENB, OUTPUT);
+  
   digitalWrite(LXL, HIGH);
 
   delay(150);
@@ -31,7 +46,7 @@ void OxKybot_ARM_command::init()
   sensor.startContinuous();
 
   sensor2.startContinuous();
-  logger.publis_arduino_log("ARM int done");
+  logger.publish_arduino_log("ARM init done");
 }
 void OxKybot_ARM_command::setLogger(Logger l)
 {
@@ -40,45 +55,41 @@ void OxKybot_ARM_command::setLogger(Logger l)
 uint16_t OxKybot_ARM_command::read_left_arm_position()
 {
   this->arm_left_pose = this->sensor.readRangeContinuousMillimeters();
-  logger.publis_arduino_log("ARM left position : " + this->arm_left_pose);
+  logger.publish_arduino_log("ARM left position : " + this->arm_left_pose);
   return this->arm_left_pose;
 }
 uint16_t OxKybot_ARM_command::read_right_arm_position()
 {
   this->arm_right_pose = this->sensor2.readRangeContinuousMillimeters();
-  logger.publis_arduino_log("ARM right position : " + this->arm_right_pose);
+  logger.publish_arduino_log("ARM right position : " + this->arm_right_pose);
   return this->arm_right_pose;
 }
 
 void OxKybot_ARM_command::left_arm_goto_position(uint16_t p)
 {
-  logger.publis_arduino_log("ARM move left gaol position : " + p);
+  logger.publish_arduino_log("ARM left new gaol position : " + p);
   read_left_arm_position();
   this->movingLeft = true;
   if (p > this->arm_left_pose)
   {
-    logger.publis_arduino_log("ARM move left forward");
     axeL_Forward(SPEED_VALUE);
   }
   else
   {
-    logger.publis_arduino_log("ARM move left bacward");
     axeL_Backward(SPEED_VALUE);
   }
 }
 void OxKybot_ARM_command::right_arm_goto_position(uint16_t p)
 {
-  logger.publis_arduino_log("ARM new right gaol position : " + p);
+  logger.publish_arduino_log("ARM right new gaol position : " + p);
   read_right_arm_position();
   this->movingRight = true;
   if (p > this->arm_right_pose)
   {
-    logger.publis_arduino_log("ARM move right forward");
     axeR_Forward(SPEED_VALUE);
   }
   else
   {
-    logger.publis_arduino_log("ARM move right bacward");
     axeR_Backward(SPEED_VALUE);
   }
 }
@@ -90,8 +101,7 @@ void OxKybot_ARM_command::loop()
     if (abs(this->arm_left_goal_pose - this->arm_left_pose) < DELAT_ARM)
     {
       this->movingLeft = false;
-      axeL_Brake();
-      logger.publis_arduino_log("ARM move left STOP");
+      axeL_Brake();     
     }
   }
   if (this->movingRight)
@@ -101,13 +111,13 @@ void OxKybot_ARM_command::loop()
     {
       this->movingRight = false;
       axeR_Brake();
-      logger.publis_arduino_log("ARM move right STOP");
     }
   }
 }
 
 void OxKybot_ARM_command::desL_Forward(int Speed)
 {
+  logger.publish_arduino_log("DES left move forward");
   digitalWrite(DSIN1, HIGH);
   digitalWrite(DSIN2, LOW);
   analogWrite(DSENA, Speed);
@@ -115,17 +125,20 @@ void OxKybot_ARM_command::desL_Forward(int Speed)
 
 void OxKybot_ARM_command::desL_Backward(int Speed)
 {
+  logger.publish_arduino_log("DES left move backward");
   digitalWrite(DSIN1, LOW);
   digitalWrite(DSIN2, HIGH);
   analogWrite(DSENA, Speed);
 }
 void OxKybot_ARM_command::desL_Brake()
 {
+  logger.publish_arduino_log("DES left stop");
   digitalWrite(DSIN1, LOW);
   digitalWrite(DSIN2, LOW);
 }
 void OxKybot_ARM_command::desR_Forward(int Speed)
 {
+  logger.publish_arduino_log("DES right move forward");
   digitalWrite(DSIN3, HIGH);
   digitalWrite(DSIN4, LOW);
   analogWrite(DSENB, Speed);
@@ -133,18 +146,21 @@ void OxKybot_ARM_command::desR_Forward(int Speed)
 
 void OxKybot_ARM_command::desR_Backward(int Speed)
 {
+  logger.publish_arduino_log("DES right move backward");
   digitalWrite(DSIN3, LOW);
   digitalWrite(DSIN4, HIGH);
   analogWrite(DSENB, Speed);
 }
 void OxKybot_ARM_command::desR_Brake()
 {
+  logger.publish_arduino_log("DES right stop");
   digitalWrite(DSIN3, LOW);
   digitalWrite(DSIN4, LOW);
 }
 
 void OxKybot_ARM_command::axeL_Forward(int Speed)
 {
+  logger.publish_arduino_log("ARM left move forward");
   digitalWrite(AXIN1, HIGH);
   digitalWrite(AXIN2, LOW);
   analogWrite(AXENA, Speed);
@@ -152,6 +168,7 @@ void OxKybot_ARM_command::axeL_Forward(int Speed)
 
 void OxKybot_ARM_command::axeL_Backward(int Speed)
 {
+  logger.publish_arduino_log("ARM left move bacward");
   digitalWrite(AXIN1, LOW);
   digitalWrite(AXIN2, HIGH);
   analogWrite(AXENA, Speed);
@@ -160,9 +177,11 @@ void OxKybot_ARM_command::axeL_Brake()
 {
   digitalWrite(AXIN1, LOW);
   digitalWrite(AXIN2, LOW);
+  logger.publish_arduino_log("ARM left STOP");
 }
 void OxKybot_ARM_command::axeR_Forward(int Speed)
 {
+  logger.publish_arduino_log("ARM right move forward");
   digitalWrite(AXIN3, HIGH);
   digitalWrite(AXIN4, LOW);
   analogWrite(AXENB, Speed);
@@ -170,12 +189,14 @@ void OxKybot_ARM_command::axeR_Forward(int Speed)
 
 void OxKybot_ARM_command::axeR_Backward(int Speed)
 {
+  logger.publish_arduino_log("ARM right move bacward");
   digitalWrite(AXIN3, LOW);
   digitalWrite(AXIN4, HIGH);
   analogWrite(AXENB, Speed);
 }
 void OxKybot_ARM_command::axeR_Brake()
 {
+  logger.publish_arduino_log("ARM right STOP");
   digitalWrite(AXIN3, LOW);
   digitalWrite(AXIN4, LOW);
 }

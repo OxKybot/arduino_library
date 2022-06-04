@@ -3,25 +3,11 @@
 OxKybot_MOTOR_command::OxKybot_MOTOR_command() {}
 void OxKybot_MOTOR_command::init()
 {
-  logger.publis_arduino_log("MOTOR init start");
+  logger.publish_arduino_log("MOTOR init start");
   pinMode(MOE1, OUTPUT);
   pinMode(MOP1, OUTPUT);
   pinMode(MOE2, OUTPUT);
   pinMode(MOP2, OUTPUT);
-
-  pinMode(AXIN1, OUTPUT);
-  pinMode(AXIN2, OUTPUT);
-  pinMode(AXENA, OUTPUT);
-  pinMode(AXIN4, OUTPUT);
-  pinMode(AXIN3, OUTPUT);
-  pinMode(AXENB, OUTPUT);
-
-  pinMode(DSIN1, OUTPUT);
-  pinMode(DSIN2, OUTPUT);
-  pinMode(DSENA, OUTPUT);
-  pinMode(DSIN4, OUTPUT);
-  pinMode(DSIN3, OUTPUT);
-  pinMode(DSENB, OUTPUT);
 
   pinMode(LAMP, OUTPUT);
   pinMode(LXL, OUTPUT);
@@ -40,7 +26,7 @@ void OxKybot_MOTOR_command::init()
   imu_sensor.init();
   motorRRuning =false;
   motorLRuning =false;
-  logger.publis_arduino_log("MOTOR init done");
+  logger.publish_arduino_log("MOTOR init done");
 }
 SlamPose OxKybot_MOTOR_command::getPosition()
 {
@@ -60,17 +46,19 @@ void OxKybot_MOTOR_command::setTimer(TimeoutCallback *t)
 }
 void OxKybot_MOTOR_command::setPosition(std_msgs::String p)
 {
-
-  char data[100];
-  String data_string = String(p.data);
-  strcpy(data, data_string.c_str());
-  char *ptr = strtok(data, ",");
-  this->position.poseX = atoi(ptr);
-  ptr = strtok(NULL, ",");
-  this->position.poseY = atoi(ptr);
-  ptr = strtok(NULL, ",");
-  this->position.angle = atoi(ptr);
-  logger.publis_arduino_log("position : " + this->position.toString());
+  free(this->setPositionData);
+  free(this->setPositionData_string);
+  free(this->setPositionPtr);
+  this->setPositionData = new char[100];
+  this->setPositionData_string = String(p.data);
+  strcpy(this->setPositionData, sthis->etPositionData_string.c_str());
+  this->setPositionPtr = strtok(this->setPositionData, ",");
+  this->position.poseX = atoi(this->setPositionPtr);
+  this->setPositionPtr = strtok(NULL, ",");
+  this->position.poseY = atoi(this->setPositionPtr);
+  this->setPositionPtr = strtok(NULL, ",");
+  this->position.angle = atoi(this->setPositionPtr);
+  this->logger.publish_arduino_log("position : " + this->position.toString());
 }
 void OxKybot_MOTOR_command::setLogger(Logger l)
 {
@@ -85,44 +73,43 @@ void OxKybot_MOTOR_command::setPositionClient(ros::ServiceClient<std_msgs::Strin
 void OxKybot_MOTOR_command::resetAngle()
 {
   this->imu_sensor.resetBearing();
-  logger.publis_arduino_log("ANGLE has been reset");
+  logger.publish_arduino_log("ANGLE has been reset");
 }
 void OxKybot_MOTOR_command::gotoAngle(int angle)
 {
-  
-  unsigned int actualAngle = this->imu_sensor.getBearing();
-  logger.publis_arduino_log("MOTOR actual angle : "+ String(actualAngle) + " go to : "+String(angle));
-  unsigned int d1 = (MAX_ANGLE + angle - actualAngle) % MAX_ANGLE;
-  unsigned int d2 = (MAX_ANGLE + actualAngle - angle) % MAX_ANGLE;
-  if (!(d1 < DELAT_ANGLE && d2 < DELAT_ANGLE))
+  this->actualAngle = this->imu_sensor.getBearing();
+  logger.publish_arduino_log("MOTOR actual angle : "+ String(this->actualAngle) + " go to : "+String(angle));
+  this->gotoAngleD1 = (MAX_ANGLE + angle - this->actualAngle) % MAX_ANGLE;
+  this->gotoAngleD2 = (MAX_ANGLE + this->actualAngle - angle) % MAX_ANGLE;
+  if (!(this->gotoAngleD1 < DELAT_ANGLE && this->gotoAngleD2 < DELAT_ANGLE))
   {
     
-    if (d1 < d2)
+    if (this->gotoAngleD1 < this->gotoAngleD2)
     {
-      logger.publis_arduino_log("MOTOR turn left");
-      while (d1 > DELAT_ANGLE)
+      logger.publish_arduino_log("MOTOR turn left");
+      while (this->gotoAngleD1 > DELAT_ANGLE)
       {
         turn_left(SPEED_VALUE);
         actualAngle = this->imu_sensor.getBearing();
-        d1 = (MAX_ANGLE + angle - actualAngle) % MAX_ANGLE;
-        d2 = (MAX_ANGLE + actualAngle - angle) % MAX_ANGLE;
+        this->gotoAngleD1 = (MAX_ANGLE + angle - actualAngle) % MAX_ANGLE;
+        this->gotoAngleD2 = (MAX_ANGLE + actualAngle - angle) % MAX_ANGLE;
         wdt_reset();
       }
     }
     else
     {
-      logger.publis_arduino_log("MOTOR turn right");
-      while (d2 > DELAT_ANGLE)
+      logger.publish_arduino_log("MOTOR turn right");
+      while (this->gotoAngleD2 > DELAT_ANGLE)
       {
         turn_right(SPEED_VALUE);
         actualAngle = this->imu_sensor.getBearing();
-        d1 = (MAX_ANGLE + angle - actualAngle) % MAX_ANGLE;
-        d2 = (MAX_ANGLE + actualAngle - angle) % MAX_ANGLE;
+        this->gotoAngleD1 = (MAX_ANGLE + angle - actualAngle) % MAX_ANGLE;
+        this->gotoAngleD2 = (MAX_ANGLE + actualAngle - angle) % MAX_ANGLE;
         wdt_reset();
       }
     }
     motorBrake();
-    logger.publis_arduino_log("MOTOR turn end");
+    logger.publish_arduino_log("MOTOR turn end");
   }
 }
 unsigned int OxKybot_MOTOR_command::getAngle()
@@ -135,7 +122,6 @@ void OxKybot_MOTOR_command::turn_left(int Speed)
   motorL_Backward(SPEED_VALUE);
   securityTimer->start();
 }
-
 void OxKybot_MOTOR_command::turn_right(int Speed)
 {
   motorL_Forward(SPEED_VALUE);
