@@ -47,16 +47,25 @@ void OxKybot_MOTOR_command::setTimer(TimeoutCallback *t)
 
 void OxKybot_MOTOR_command::setPosition(std_msgs::String p)
 {
-  this->setPositionData = new char[100];
+  
   this->setPositionData_string = String(p.data);
-  strcpy(this->setPositionData, this->setPositionData_string.c_str());
-  this->setPositionPtr = strtok(this->setPositionData, ",");
-  this->position.poseX = atoi(this->setPositionPtr);
-  this->setPositionPtr = strtok(NULL, ",");
-  this->position.poseY = atoi(this->setPositionPtr);
-  this->setPositionPtr = strtok(NULL, ",");
-  this->position.angle = atoi(this->setPositionPtr);
-  this->logger.publish_arduino_log("position : " + this->position.toString());
+  if(this->setPositionData_string.length>5)
+  {
+    this->setPositionData = new char[this->setPositionData_string.length();
+    strcpy(this->setPositionData, this->setPositionData_string.c_str());
+    this->setPositionPtr = strtok(this->setPositionData, ";");
+    this->position.poseX = atoi(this->setPositionPtr);
+    this->setPositionPtr = strtok(NULL, ";");
+    this->position.poseY = atoi(this->setPositionPtr);
+    this->setPositionPtr = strtok(NULL, ";");
+    this->position.angle = atoi(this->setPositionPtr);
+    this->logger.publish_arduino_log("position : " + this->position.toString());
+  }
+  else
+  {
+    this->logger.publish_arduino_log("WRONG MESSAGE : " + this->setPositionData_string);
+  }
+                                       
 }
 void OxKybot_MOTOR_command::setLogger(Logger l)
 {
