@@ -22,8 +22,8 @@ void OxKybot_MOTOR_command::init()
   Wire.begin();
 
   delay(500);
-  imu_sensor = CMPS14_imu();
-  imu_sensor.init();
+ // imu_sensor = CMPS14_imu();
+ // imu_sensor.init();
   motorRRuning =false;
   motorLRuning =false;
   logger.publish_arduino_log("MOTOR init done");
