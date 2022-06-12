@@ -20,7 +20,7 @@ void OxKybot_ARM_command::init()
   pinMode(DSIN4, OUTPUT);
   pinMode(DSIN3, OUTPUT);
   pinMode(DSENB, OUTPUT);
-  /*
+  
   digitalWrite(LXL, HIGH);
 
   delay(150);
@@ -46,7 +46,7 @@ void OxKybot_ARM_command::init()
   sensor.startContinuous();
 
   sensor2.startContinuous();
-  */
+  
   logger.publish_arduino_log("ARM init done");
 }
 void OxKybot_ARM_command::setLogger(Logger l)
