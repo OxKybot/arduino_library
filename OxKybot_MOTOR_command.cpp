@@ -47,8 +47,6 @@ void OxKybot_MOTOR_command::setTimer(TimeoutCallback *t)
 
 void OxKybot_MOTOR_command::setPosition(std_msgs::String p)
 {
-  free(this->setPositionData);
-  free(this->setPositionPtr);
   this->setPositionData = new char[100];
   this->setPositionData_string = String(p.data);
   strcpy(this->setPositionData, this->setPositionData_string.c_str());
@@ -77,9 +75,8 @@ void OxKybot_MOTOR_command::resetAngle()
 }
 void OxKybot_MOTOR_command::gotoAngle(int angle)
 {
-  
-	unsigned int gotoAngleD1;
-	unsigned int gotoAngleD2;
+  unsigned int gotoAngleD1;
+  unsigned int gotoAngleD2;
   this->actualAngle = this->imu_sensor.getBearing();
   logger.publish_arduino_log("MOTOR actual angle : "+ String(this->actualAngle) + " go to : "+String(angle));
   gotoAngleD1 = (MAX_ANGLE + angle - this->actualAngle) % MAX_ANGLE;
