@@ -12,8 +12,8 @@
 #include "Logger.h"
 #include <TimeoutCallback.h>
 
-#define SPEED_VALUE 130
-#define MIN_SPEED_VALUE 125
+#define SPEED_VALUE 255
+#define MIN_SPEED_VALUE 128
 #define MIDDLE_SPEED_VALUE 130
 #define DELAY_TO_STOP 10
 #define DELAT_ANGLE 50
