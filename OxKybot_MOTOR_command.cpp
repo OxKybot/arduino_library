@@ -219,7 +219,7 @@ void OxKybot_MOTOR_command::motorL_Brake()
 }
 void OxKybot_MOTOR_command::motorR_Backward(int Speed)
 {
-  digitalWrite(MOE2, HIGH);
+  digitalWrite(MOE2, LOW);
   if(!motorRRuning)
   {
     motor_easy_start(MOP2);
@@ -230,7 +230,7 @@ void OxKybot_MOTOR_command::motorR_Backward(int Speed)
 
 void OxKybot_MOTOR_command::motorR_Forward(int Speed)
 {
-  digitalWrite(MOE2, LOW);
+  digitalWrite(MOE2, HIGH);
   if(!motorRRuning)
   {
     motor_easy_start(MOP2);
