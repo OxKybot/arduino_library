@@ -15,7 +15,6 @@ public:
     }
     void publish_arduino_log(String textLog)
     {
-        free(this->bufferLog);
         this->logLength = textLog.length()+1;
         this->bufferLog = new char[this->logLength];
         textLog.toCharArray(this->bufferLog, this->logLength);
