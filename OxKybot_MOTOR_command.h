@@ -9,7 +9,7 @@ class OxKybot_MOTOR_command
 public:
 	OxKybot_MOTOR_command();
 	void init();
-	SlamPose getPosition();
+	geometry_msgs::PoseStamped getPosition();
 	void setPositionClient(ros::ServiceClient<std_msgs::String, std_msgs::String>* c);
 	void setPosition(std_msgs::String p);
 	void setLogger(Logger l);
@@ -30,10 +30,7 @@ public:
 
 
 private:
-	unsigned int actualAngle;
-	char* setPositionData;
-	String setPositionData_string;
-	char *setPositionPtr;
+	geometry_msgs::PoseStamped actualPose;
 	TimeoutCallback* securityTimer;
 	void motorL_Forward(int Speed);
 	void motorL_Backward(int Speed);
@@ -48,8 +45,7 @@ private:
 
 	Logger logger;
 	void refreshPosition();
-	SlamPose position;
-	ros::ServiceClient<std_msgs::String, std_msgs::String>* client;
+	ros::ServiceClient<std_msgs::String, geometry_msgs::PoseStamped>* client;
 	CMPS14_imu imu_sensor;
 
 };
