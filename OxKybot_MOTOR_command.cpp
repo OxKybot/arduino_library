@@ -28,15 +28,15 @@ void OxKybot_MOTOR_command::init()
   motorLRuning =false;
   logger.publish_arduino_log("MOTOR init done");
 }
-SlamPose OxKybot_MOTOR_command::getPosition()
+geometry_msgs::PoseStamped OxKybot_MOTOR_command::getPosition()
 {
   refreshPosition();
-  return this->position;
+  return this->actualPose;
 }
 void OxKybot_MOTOR_command::refreshPosition()
 {
   std_msgs::String req;
-  std_msgs::String res;
+  geometry_msgs::PoseStamped res;
   client->call(req, res);
   setPosition(res);
 }
@@ -44,34 +44,18 @@ void OxKybot_MOTOR_command::setTimer(TimeoutCallback *t)
 {
   securityTimer = t;
 }
-
-void OxKybot_MOTOR_command::setPosition(std_msgs::String p)
+void OxKybot_MOTOR_command::setPosition(geometry_msgs::PoseStamped p)
 {
   
-  this->setPositionData_string = String(p.data);
-  if(this->setPositionData_string.length>5)
-  {
-    this->setPositionData = new char[this->setPositionData_string.length();
-    strcpy(this->setPositionData, this->setPositionData_string.c_str());
-    this->setPositionPtr = strtok(this->setPositionData, ";");
-    this->position.poseX = atoi(this->setPositionPtr);
-    this->setPositionPtr = strtok(NULL, ";");
-    this->position.poseY = atoi(this->setPositionPtr);
-    this->setPositionPtr = strtok(NULL, ";");
-    this->position.angle = atoi(this->setPositionPtr);
-    this->logger.publish_arduino_log("position : " + this->position.toString());
-  }
-  else
-  {
-    this->logger.publish_arduino_log("WRONG MESSAGE : " + this->setPositionData_string);
-  }
+  this->actualPose = p;
+  this->logger.publish_arduino_log("position : X=" + String(this->actualPose.pose.position.x) + "Y=" +String(this->actualPose.pose.position.y) + "A=" + String(this->actualPose.pose..orientation.z));
                                        
 }
 void OxKybot_MOTOR_command::setLogger(Logger l)
 {
   this->logger = l;
 }
-void OxKybot_MOTOR_command::setPositionClient(ros::ServiceClient<std_msgs::String, std_msgs::String> *c)
+void OxKybot_MOTOR_command::setPositionClient(ros::ServiceClient<std_msgs::String, geometry_msgs::PoseStamped> *c)
 {
   this->client = c;
   refreshPosition();
