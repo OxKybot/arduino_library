@@ -11,7 +11,7 @@ public:
 	void init();
 	geometry_msgs::PoseStamped getPosition();
 	void setPositionClient(ros::ServiceClient<std_msgs::String, geometry_msgs::PoseStamped>* c);
-	void setPosition(std_msgs::String p);
+	void setPosition(geometry_msgs::PoseStamped p);
 	void setLogger(Logger l);
 	void gotoAngle(int angle);
 	void resetAngle();
