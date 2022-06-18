@@ -3,7 +3,6 @@
 OxKybot_MOTOR_command::OxKybot_MOTOR_command() {}
 void OxKybot_MOTOR_command::init()
 {
-  logger.publish_arduino_log("MOTOR init start");
   pinMode(MOE1, OUTPUT);
   pinMode(MOP1, OUTPUT);
   pinMode(MOE2, OUTPUT);
@@ -26,12 +25,15 @@ void OxKybot_MOTOR_command::init()
   imu_sensor.init();
   motorRRuning =false;
   motorLRuning =false;
-  logger.publish_arduino_log("MOTOR init done");
 }
 geometry_msgs::PoseStamped OxKybot_MOTOR_command::getPosition()
 {
   refreshPosition();
   return this->actualPose;
+}
+void OxKybot_MOTOR_command::loop()
+{
+  
 }
 void OxKybot_MOTOR_command::refreshPosition()
 {
