@@ -5,8 +5,6 @@ OxKybot_ARM_command::OxKybot_ARM_command()
 }
 void OxKybot_ARM_command::init()
 {
-  logger.publish_arduino_log("ARM init start");
-
   pinMode(AXIN1, OUTPUT);
   pinMode(AXIN2, OUTPUT);
   pinMode(AXENA, OUTPUT);
@@ -46,8 +44,6 @@ void OxKybot_ARM_command::init()
   sensor.startContinuous();
 
   sensor2.startContinuous();
-  
-  logger.publish_arduino_log("ARM init done");
 }
 void OxKybot_ARM_command::setLogger(Logger l)
 {
