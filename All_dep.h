@@ -14,9 +14,29 @@
 
 #define SPEED_VALUE 255
 #define MIN_SPEED_VALUE 128
-#define MIDDLE_SPEED_VALUE 135
+#define NB_PULSE_TRANSITION 5
 #define DELAY_TO_STOP 20
 #define DELAY_TO_RUN 10
 #define DELAT_ANGLE 50
 #define DELAT_ARM 5
 #define STEP_DURATION 1100UL
+
+enum motor_speed {
+  SLOW,
+  FAST
+  };
+enum motor_state {
+  FORWARD,
+  BACKWARD,
+  STOP
+  };
+enum motor_transition_type {
+  FORWARD_TO_STOP,
+  BACKWARD_TO_STOP,
+  FORWARD_TO_BACWARD,
+  BACKWARD_TO_FORWARD,
+  STOP_TO_FORWARD,
+  STOP_TO_BACKWARD,
+  NO_TRANSITION
+  };
+
