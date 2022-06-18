@@ -1,9 +1,9 @@
 //motor wheel
-#define MOE1 42
-#define MOP1 40
+#define MOE2 42
+#define MOP2 40
 
-#define MOE2 43
-#define MOP2 41
+#define MOE1 43
+#define MOP1 41
 
 
 //axe
