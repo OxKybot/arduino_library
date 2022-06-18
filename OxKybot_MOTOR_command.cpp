@@ -21,10 +21,10 @@ void OxKybot_MOTOR_command::init()
   Wire.begin();
 
   delay(500);
-  imu_sensor = CMPS14_imu();
-  imu_sensor.init();
-  motorRRuning =false;
-  motorLRuning =false;
+  this->imu_sensor = CMPS14_imu();
+  this->imu_sensor.init();
+  this->motorLeft = OxKybot_MOTOR(MOE2,MOP2);
+  this->motorRight = OxKybot_MOTOR(MOE1,MOP1);
 }
 geometry_msgs::PoseStamped OxKybot_MOTOR_command::getPosition()
 {
@@ -33,7 +33,8 @@ geometry_msgs::PoseStamped OxKybot_MOTOR_command::getPosition()
 }
 void OxKybot_MOTOR_command::loop()
 {
-  
+  this->motorLeft.loop();
+  this->motorRight.loop();
 }
 void OxKybot_MOTOR_command::refreshPosition()
 {
@@ -56,6 +57,8 @@ void OxKybot_MOTOR_command::setPosition(geometry_msgs::PoseStamped p)
 void OxKybot_MOTOR_command::setLogger(Logger l)
 {
   this->logger = l;
+  this->motorLeft.setLogger(l);
+  this->motorRight.setLogger(l);
 }
 void OxKybot_MOTOR_command::setPositionClient(ros::ServiceClient<std_msgs::String, geometry_msgs::PoseStamped> *c)
 {
@@ -84,7 +87,7 @@ void OxKybot_MOTOR_command::gotoAngle(int angle)
       logger.publish_arduino_log("MOTOR turn left");
       while (gotoAngleD1 > DELAT_ANGLE)
       {
-        turn_left(SPEED_VALUE);
+        turn_left(SLOW);
         this->actualAngle = this->imu_sensor.getBearing();
         gotoAngleD1 = (MAX_ANGLE + angle - actualAngle) % MAX_ANGLE;
         wdt_reset();
@@ -95,7 +98,7 @@ void OxKybot_MOTOR_command::gotoAngle(int angle)
       logger.publish_arduino_log("MOTOR turn right");
       while (gotoAngleD2 > DELAT_ANGLE)
       {
-        turn_right(SPEED_VALUE);
+        turn_right(SLOW);
         this->actualAngle = this->imu_sensor.getBearing();
         gotoAngleD2 = (MAX_ANGLE + actualAngle - angle) % MAX_ANGLE;
         wdt_reset();
@@ -110,119 +113,57 @@ unsigned int OxKybot_MOTOR_command::getAngle()
   this->actualAngle = this->imu_sensor.getBearing();
   return this->actualAngle;
 }
-void OxKybot_MOTOR_command::turn_left(int Speed)
+void OxKybot_MOTOR_command::turn_left(motor_speed Speed)
 {
-  motorR_Forward(SPEED_VALUE);
-  motorL_Backward(SPEED_VALUE);
+  this->motorRight.go_forward(speed);
+  this->motorLeft.go_backward(speed);
   securityTimer->start();
 }
-void OxKybot_MOTOR_command::turn_right(int Speed)
+void OxKybot_MOTOR_command::turn_right(motor_speed Speed)
 {
-  motorL_Forward(SPEED_VALUE);
-  motorR_Backward(SPEED_VALUE);
+  this->motorLeft.go_forward(speed);
+  this->motorRight.go_backward(speed);
   securityTimer->start();
 }
 
-void OxKybot_MOTOR_command::forward(int Speed, int angle)
+void OxKybot_MOTOR_command::forward(motor_speed Speed, int angle)
 {
   gotoAngle(angle);
-  motorL_Forward(SPEED_VALUE);
-  motorR_Forward(SPEED_VALUE);
+  this->motorLeft.go_forward(speed);
+  this->motorRight.go_forward(speed);
   securityTimer->start();
 }
-void OxKybot_MOTOR_command::backward(int Speed, int angle)
+void OxKybot_MOTOR_command::backward(motor_speed Speed, int angle)
 {
   gotoAngle(angle);
-  motorL_Backward(SPEED_VALUE);
-  motorR_Backward(SPEED_VALUE);
+  this->motorLeft.go_backward(speed);
+  this->motorRight.go_backward(speed);
   securityTimer->start();
 }
 
 void OxKybot_MOTOR_command::motorBrake()
 {
-  for(int i=MIDDLE_SPEED_VALUE;i>MIN_SPEED_VALUE;i--)
-    {
-      backward_joy(128);
-      delay(DELAY_TO_RUN);
-      motorR_Brake();
-      motorL_Brake(); 
-      delay(DELAY_TO_STOP);
-      motorR_Brake();
-      motorL_Brake();
-      delay(DELAY_TO_STOP);
-    }
+  this->motorLeft.motorBrake();
+  this->motorRight.motorBrake();
   wdt_reset();
 }
-void OxKybot_MOTOR_command::turn_left_joy(int Speed)
+void OxKybot_MOTOR_command::turn_left_joy(motor_speed Speed)
 {
-  motorR_Forward(SPEED_VALUE);
-  motorL_Backward(SPEED_VALUE);
+  this->motorRight.go_forward(speed);
+  this->motorLeft.go_backward(speed);
 }
-void OxKybot_MOTOR_command::turn_right_joy(int Speed)
+void OxKybot_MOTOR_command::turn_right_joy(motor_speed Speed)
 {
-  motorL_Forward(SPEED_VALUE);
-  motorR_Backward(SPEED_VALUE);
+  this->motorLeft.go_forward(speed);
+  this->motorRight.go_backward(speed);
 }
-void OxKybot_MOTOR_command::forward_joy(int Speed)
+void OxKybot_MOTOR_command::forward_joy(motor_speed Speed)
 {
-  motorL_Forward(SPEED_VALUE);
-  motorR_Forward(SPEED_VALUE);
+  this->motorLeft.go_forward(speed);
+  this->motorRight.go_forward(speed);
 }
-void OxKybot_MOTOR_command::backward_joy(int Speed)
+void OxKybot_MOTOR_command::backward_joy(motor_speed Speed)
 {
-  motorL_Backward(SPEED_VALUE);
-  motorR_Backward(SPEED_VALUE);
-}
-void OxKybot_MOTOR_command::motor_easy_start(int pin)
-{
-  //this->logger.publish_arduino_log("easy start");
-}
-void OxKybot_MOTOR_command::motor_easy_stop(int pin)
-{
-  /*this->logger.publish_arduino_log("easy stop start");
-  for(int i=MIDDLE_SPEED_VALUE;i>MIN_SPEED_VALUE;i--)
-    {
-      motorBrake();
-      delay(DELAY_TO_STOP);
-      forward_joy(128);
-    }
-  this->logger.publish_arduino_log("easy stop FINISHED");*/
-}
-void OxKybot_MOTOR_command::motorL_Forward(int Speed)
-{
-  digitalWrite(MOE1, HIGH);
-  analogWrite(MOP1, Speed);
-  motorLRuning= true;
-}
-void OxKybot_MOTOR_command::motorL_Backward(int Speed)
-{
-  digitalWrite(MOE1, LOW);
-  analogWrite(MOP1, Speed);
-  motorLRuning = true;
-}
-void OxKybot_MOTOR_command::motorL_Brake()
-{
-  if(motorLRuning)
-  digitalWrite(MOE1, LOW);
-  analogWrite(MOP1, 0);
-  motorLRuning = false;
-}
-void OxKybot_MOTOR_command::motorR_Backward(int Speed)
-{
-  digitalWrite(MOE2, LOW);
-  analogWrite(MOP2, Speed);
-  motorRRuning = true;
-}
-
-void OxKybot_MOTOR_command::motorR_Forward(int Speed)
-{
-  digitalWrite(MOE2, HIGH);
-  analogWrite(MOP2, Speed);
-  motorRRuning = true;
-}
-void OxKybot_MOTOR_command::motorR_Brake()
-{
-  digitalWrite(MOE2, LOW);
-  analogWrite(MOP2, 0);
-  motorRRuning = false;
+  this->motorLeft.go_backward(speed);
+  this->motorRight.go_backward(speed);
 }
