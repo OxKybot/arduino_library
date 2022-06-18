@@ -175,9 +175,9 @@ void OxKybot_MOTOR_command::motor_easy_stop(int pin)
 {
   for(int i=MIDDLE_SPEED_VALUE;i>MIN_SPEED_VALUE;i--)
     {
-      wdt_reset();
-      analogWrite(pin, i);
+      forward_joy(128);
       delay(DELAY_TO_STOP);
+      motorBrake();
     }
 }
 void OxKybot_MOTOR_command::motorL_Forward(int Speed)
