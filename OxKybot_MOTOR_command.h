@@ -10,7 +10,7 @@ public:
 	OxKybot_MOTOR_command();
 	void init();
 	geometry_msgs::PoseStamped getPosition();
-	void setPositionClient(ros::ServiceClient<std_msgs::String, std_msgs::String>* c);
+	void setPositionClient(ros::ServiceClient<std_msgs::String, geometry_msgs::PoseStamped>* c);
 	void setPosition(std_msgs::String p);
 	void setLogger(Logger l);
 	void gotoAngle(int angle);
