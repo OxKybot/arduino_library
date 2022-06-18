@@ -144,6 +144,7 @@ void OxKybot_MOTOR_command::motorBrake()
       motorL_Brake();
       delay(DELAY_TO_STOP);
       forward_joy(128); 
+      delay(DELAY_TO_STOP);
     }
   wdt_reset();
 }
