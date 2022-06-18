@@ -173,12 +173,14 @@ void OxKybot_MOTOR_command::motor_easy_start(int pin)
 }
 void OxKybot_MOTOR_command::motor_easy_stop(int pin)
 {
+  this->logger.publish_arduino_log("easy stop start");
   for(int i=MIDDLE_SPEED_VALUE;i>MIN_SPEED_VALUE;i--)
     {
-      forward_joy(128);
-      delay(DELAY_TO_STOP);
       motorBrake();
+      delay(DELAY_TO_STOP);
+      forward_joy(128);
     }
+  this->logger.publish_arduino_log("easy stop FINISHED");
 }
 void OxKybot_MOTOR_command::motorL_Forward(int Speed)
 {
