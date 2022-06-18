@@ -16,35 +16,24 @@ public:
 	void gotoAngle(int angle);
 	void resetAngle();
 	unsigned int getAngle();
-	void forward(int Speed,int angle);
-	void backward(int Speed,int angle);
-	void turn_left(int Speed);
-	void turn_right(int Speed);
+	void forward(motor_speed Speed,int angle);
+	void backward(motor_speed Speed,int angle);
+	void turn_left(motor_speed Speed);
+	void turn_right(motor_speed Speed);
 	void motorBrake();
-	void forward_joy(int Speed);
-	void backward_joy(int Speed);
-	void turn_left_joy(int Speed);
-	void turn_right_joy(int Speed);
+	void forward_joy(motor_speed Speed);
+	void backward_joy(motor_speed Speed);
+	void turn_left_joy(motor_speed Speed);
+	void turn_right_joy(motor_speed Speed);
 	void setTimer(TimeoutCallback* t);
 	void loop();
 
-
-
 private:
+	OxKybot_MOTOR motorLeft;
+	OxKybot_MOTOR motorRight
 	unsigned int actualAngle;
 	geometry_msgs::PoseStamped actualPose;
 	TimeoutCallback* securityTimer;
-	void motorL_Forward(int Speed);
-	void motorL_Backward(int Speed);
-	void motorL_Brake();
-	void motorR_Backward(int Speed);
-	void motorR_Forward(int Speed);
-	void motor_easy_start(int pin);
-	void motor_easy_stop(int pin);
-	void motorR_Brake();
-	bool motorRRuning;
-	bool motorLRuning;
-
 	Logger logger;
 	void refreshPosition();
 	ros::ServiceClient<std_msgs::String, geometry_msgs::PoseStamped>* client;
