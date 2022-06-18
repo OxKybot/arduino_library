@@ -48,7 +48,7 @@ void OxKybot_MOTOR_command::setPosition(geometry_msgs::PoseStamped p)
 {
   
   this->actualPose = p;
-  this->logger.publish_arduino_log("position : X=" + String(this->actualPose.pose.position.x) + "Y=" +String(this->actualPose.pose.position.y) + "A=" + String(this->actualPose.pose..orientation.z));
+  this->logger.publish_arduino_log("position : X=" + String(this->actualPose.pose.position.x) + "Y=" +String(this->actualPose.pose.position.y) + "A=" + String(this->actualPose.pose.orientation.z));
                                        
 }
 void OxKybot_MOTOR_command::setLogger(Logger l)
