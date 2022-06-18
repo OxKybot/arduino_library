@@ -186,29 +186,18 @@ void OxKybot_MOTOR_command::motor_easy_stop(int pin)
 void OxKybot_MOTOR_command::motorL_Forward(int Speed)
 {
   digitalWrite(MOE1, HIGH);
-  if(!motorLRuning)
-  {
-    motor_easy_start(MOP1);
-  }
   analogWrite(MOP1, Speed);
   motorLRuning= true;
 }
 void OxKybot_MOTOR_command::motorL_Backward(int Speed)
 {
   digitalWrite(MOE1, LOW);
-  if(!motorLRuning)
-  {
-    motor_easy_start(MOP1);
-  } 
   analogWrite(MOP1, Speed);
   motorLRuning = true;
 }
 void OxKybot_MOTOR_command::motorL_Brake()
 {
   if(motorLRuning)
-  {
-    motor_easy_stop(MOP1);
-  }
   digitalWrite(MOE1, LOW);
   analogWrite(MOP1, 0);
   motorLRuning = false;
@@ -216,10 +205,6 @@ void OxKybot_MOTOR_command::motorL_Brake()
 void OxKybot_MOTOR_command::motorR_Backward(int Speed)
 {
   digitalWrite(MOE2, LOW);
-  if(!motorRRuning)
-  {
-    motor_easy_start(MOP2);
-  }
   analogWrite(MOP2, Speed);
   motorRRuning = true;
 }
@@ -227,19 +212,11 @@ void OxKybot_MOTOR_command::motorR_Backward(int Speed)
 void OxKybot_MOTOR_command::motorR_Forward(int Speed)
 {
   digitalWrite(MOE2, HIGH);
-  if(!motorRRuning)
-  {
-    motor_easy_start(MOP2);
-  }
   analogWrite(MOP2, Speed);
   motorRRuning = true;
 }
 void OxKybot_MOTOR_command::motorR_Brake()
 {
-  if(motorRRuning)
-  {
-    motor_easy_stop(MOP2);
-  }
   digitalWrite(MOE2, LOW);
   analogWrite(MOP2, 0);
   motorRRuning = false;
