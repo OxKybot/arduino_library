@@ -30,6 +30,7 @@ public:
 
 
 private:
+	unsigned int actualAngle;
 	geometry_msgs::PoseStamped actualPose;
 	TimeoutCallback* securityTimer;
 	void motorL_Forward(int Speed);
