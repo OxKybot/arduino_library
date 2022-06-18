@@ -138,8 +138,13 @@ void OxKybot_MOTOR_command::backward(int Speed, int angle)
 
 void OxKybot_MOTOR_command::motorBrake()
 {
-  motorR_Brake();
-  motorL_Brake();
+  for(int i=MIDDLE_SPEED_VALUE;i>MIN_SPEED_VALUE;i--)
+    {
+      motorR_Brake();
+      motorL_Brake();
+      delay(DELAY_TO_STOP);
+      forward_joy(128); 
+    }
   wdt_reset();
 }
 void OxKybot_MOTOR_command::turn_left_joy(int Speed)
@@ -164,18 +169,18 @@ void OxKybot_MOTOR_command::backward_joy(int Speed)
 }
 void OxKybot_MOTOR_command::motor_easy_start(int pin)
 {
-  this->logger.publish_arduino_log("easy start");
+  //this->logger.publish_arduino_log("easy start");
 }
 void OxKybot_MOTOR_command::motor_easy_stop(int pin)
 {
-  this->logger.publish_arduino_log("easy stop start");
+  /*this->logger.publish_arduino_log("easy stop start");
   for(int i=MIDDLE_SPEED_VALUE;i>MIN_SPEED_VALUE;i--)
     {
       motorBrake();
       delay(DELAY_TO_STOP);
       forward_joy(128);
     }
-  this->logger.publish_arduino_log("easy stop FINISHED");
+  this->logger.publish_arduino_log("easy stop FINISHED");*/
 }
 void OxKybot_MOTOR_command::motorL_Forward(int Speed)
 {
