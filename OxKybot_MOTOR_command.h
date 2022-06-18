@@ -26,6 +26,7 @@ public:
 	void turn_left_joy(int Speed);
 	void turn_right_joy(int Speed);
 	void setTimer(TimeoutCallback* t);
+	void loop();
 
 
 
