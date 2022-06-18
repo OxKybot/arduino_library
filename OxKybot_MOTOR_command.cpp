@@ -164,12 +164,7 @@ void OxKybot_MOTOR_command::backward_joy(int Speed)
 }
 void OxKybot_MOTOR_command::motor_easy_start(int pin)
 {
-  for(int i=MIN_SPEED_VALUE;i>MIDDLE_SPEED_VALUE;i--)
-    {
-      wdt_reset();
-      analogWrite(pin, i);
-      delay(DELAY_TO_STOP);
-    }
+  this->logger.publish_arduino_log("easy start");
 }
 void OxKybot_MOTOR_command::motor_easy_stop(int pin)
 {
