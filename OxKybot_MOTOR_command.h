@@ -1,7 +1,6 @@
 #ifndef __OXKYBOT_MOTOR_COMMAND_H__
 #define __OXKYBOT_MOTOR_COMMAND_H__
 
-#include "All_dep.h"
 #include "CMPS14_imu.h"
 class OxKybot_MOTOR_command
 {
