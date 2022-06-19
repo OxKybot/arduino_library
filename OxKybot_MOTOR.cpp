@@ -56,7 +56,7 @@ void OxKybot_MOTOR::loop()
     motor_Backward(SPEED_VALUE);
     this->transitionType = NO_TRANSITION;
   }
-  if(this->transitionType == motor_transition_type::FORWARD_TO_BACKWARD)
+  if(this->transitionType == motor_transition_type.FORWARD_TO_BACKWARD)
   {
     for(i=0; i<NB_PULSE_TRANSITION;i++)
     {
