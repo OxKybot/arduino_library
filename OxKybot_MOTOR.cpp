@@ -5,13 +5,13 @@ OxKybot_MOTOR::OxKybot_MOTOR(int _pinDigit, int _pinAnalog)
 {
   this->actualSpeed = FAST;
   this->actualState = STOP;
-  this->transitionType = NO_TRANSITION;
+  this->transitionType = motor_transition_type.NO_TRANSITION;
   this->pinDigit = _pinDigit;
   this->pinAnalog = _pinAnalog;
 }
 void OxKybot_MOTOR::loop()
 {
-  if(this->transitionType == NO_TRANSITION && this->actualSpeed == SLOW)
+  if(this->transitionType == motor_transition_type.NO_TRANSITION && this->actualSpeed == SLOW)
   {
     if(this->actualState == FORWARD)
     {
@@ -22,39 +22,39 @@ void OxKybot_MOTOR::loop()
       motor_Backward_slow();
     }
   }
-  if(this->transitionType == FORWARD_TO_STOP)
+  if(this->transitionType == motor_transition_type.FORWARD_TO_STOP)
   {
     for(i=0; i<NB_PULSE_TRANSITION;i++)
     {
       motor_Forward_slow();
     } 
-    this->transitionType = NO_TRANSITION;
+    this->transitionType = motor_transition_type.NO_TRANSITION;
   }
-  if(this->transitionType == BACKWARD_TO_STOP)
+  if(this->transitionType == motor_transition_type.BACKWARD_TO_STOP)
   {
     for(i=0; i<NB_PULSE_TRANSITION;i++)
     {
       motor_Backward_slow();
     } 
-    this->transitionType = NO_TRANSITION;
+    this->transitionType = motor_transition_type.NO_TRANSITION;
   }
-  if(this->transitionType == STOP_TO_FORWARD)
+  if(this->transitionType == motor_transition_type.STOP_TO_FORWARD)
   {
     for(i=0; i<NB_PULSE_TRANSITION;i++)
     {
       motor_Forward_slow();
     } 
     motor_Forward(SPEED_VALUE);
-    this->transitionType = NO_TRANSITION;
+    this->transitionType = motor_transition_type.NO_TRANSITION;
   }
-  if(this->transitionType == STOP_TO_BACKWARD)
+  if(this->transitionType == motor_transition_type.STOP_TO_BACKWARD)
   {
     for(i=0; i<NB_PULSE_TRANSITION;i++)
     {
       motor_Backward_slow();
     } 
     motor_Backward(SPEED_VALUE);
-    this->transitionType = NO_TRANSITION;
+    this->transitionType = motor_transition_type.NO_TRANSITION;
   }
   if(this->transitionType == motor_transition_type.FORWARD_TO_BACKWARD)
   {
@@ -68,9 +68,9 @@ void OxKybot_MOTOR::loop()
       
     }
     motor_Backward(SPEED_VALUE);
-    this->transitionType = NO_TRANSITION;
+    this->transitionType = motor_transition_type.NO_TRANSITION;
   }
-  if(this->transitionType == BACKWARD_TO_FORWARD)
+  if(this->transitionType == motor_transition_type.BACKWARD_TO_FORWARD)
   {
     for(i=0; i<NB_PULSE_TRANSITION;i++)
     {
@@ -81,7 +81,7 @@ void OxKybot_MOTOR::loop()
       motor_Forward_slow();
     }
     motor_Forward(SPEED_VALUE);
-    this->transitionType = NO_TRANSITION;
+    this->transitionType = motor_transition_type.NO_TRANSITION;
   }
   
 }
@@ -93,11 +93,11 @@ void OxKybot_MOTOR::go_forward(motor_speed speed)
     {
       if(this->actualState == STOP)
       {
-        this->transitionType = STOP_TO_FORWARD;
+        this->transitionType = motor_transition_type.STOP_TO_FORWARD;
       }
       else
       {
-        this->transitionType = FORWARD_TO_BACKWARD;
+        this->transitionType = motor_transition_type.FORWARD_TO_BACKWARD;
       }      
     }
     this->actualSpeed = speed;
@@ -113,11 +113,11 @@ void OxKybot_MOTOR::go_backward(motor_speed speed)
     {
       if(this->actualState == STOP)
       {
-        this->transitionType = STOP_TO_BACKWARD;
+        this->transitionType = motor_transition_type.STOP_TO_BACKWARD;
       }
       else
       {
-        this->transitionType = BACKWARD_TO_FORWARD;
+        this->transitionType = motor_transition_type.BACKWARD_TO_FORWARD;
       }
       
     }
@@ -133,11 +133,11 @@ void OxKybot_MOTOR::motorBrake()
     {
       if(this->actualState == FORWARD)
       {
-        this->transitionType = FORWARD_TO_STOP;
+        this->transitionType = motor_transition_type.FORWARD_TO_STOP;
       }
       else
       {
-        this->transitionType = BACKWARD_TO_STOP;
+        this->transitionType = motor_transition_type.BACKWARD_TO_STOP;
       }
     }
     else
