@@ -2,6 +2,7 @@
 #define __OXKYBOT_MOTOR_COMMAND_H__
 
 #include "CMPS14_imu.h"
+#include "OxKybot_MOTOR.h"
 class OxKybot_MOTOR_command
 {
 
