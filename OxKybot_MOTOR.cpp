@@ -1,6 +1,7 @@
 
 #include "OxKybot_MOTOR.h"
 
+OxKybot_MOTOR::OxKybot_MOTOR(){}
 OxKybot_MOTOR::OxKybot_MOTOR(int _pinDigit, int _pinAnalog)
 {
   this->actualSpeed = FAST;
