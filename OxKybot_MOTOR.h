@@ -25,6 +25,7 @@ enum transition_type{
 class OxKybot_MOTOR
 {
 public:
+	OxKybot_MOTOR();
 	OxKybot_MOTOR(int _pinDigit, int _pinAnalog);
 	void setLogger(Logger l);
 	void motorBrake();
