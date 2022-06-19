@@ -31,8 +31,6 @@ private:
   int pinDigit;
   int pinAnalog;
   int i;
-  motor_transition_type transitionType;
-  motor_speed actualSpeed;
   enum {
   FORWARD_TO_STOP,
   BACKWARD_TO_STOP,
@@ -41,7 +39,9 @@ private:
   STOP_TO_FORWARD,
   STOP_TO_BACKWARD,
   NO_TRANSITION
-  } actualState;
+  } transitionType;
+  motor_speed actualSpeed;
+  motor_state actualState;
   void motor_Forward_slow();
   void motor_Backward_slow();
   void motor_Forward(motor_speed speed);
