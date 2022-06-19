@@ -12,7 +12,7 @@ enum motor_state {
   BACKWARD,
   STOP
   };
-enum motor_transition_type {
+Class enum motor_transition_type {
   FORWARD_TO_STOP,
   BACKWARD_TO_STOP,
   FORWARD_TO_BACWARD,
