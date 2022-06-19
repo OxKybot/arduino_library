@@ -40,15 +40,15 @@ private:
   int pinDigit;
   int pinAnalog;
   int i;
-  motor_transition_type transitionType
+  motor_transition_type transitionType;
   motor_speed actualSpeed;
   motor_state actualState;
   void motor_Forward_slow();
   void motor_Backward_slow();
-	void motor_Forward(int Speed);
-	void motor_Brake();
-	void motor_Backward(int Speed);
-	Logger logger;
+  void motor_Forward(int Speed);
+  void motor_Brake();
+  void motor_Backward(int Speed);
+  Logger logger;
 
 
 };
