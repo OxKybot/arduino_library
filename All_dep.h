@@ -20,6 +20,7 @@
 #define DELAT_ANGLE 50
 #define DELAT_ARM 5
 #define STEP_DURATION 1100UL
+#define POSITION_FACTOR 200
 
 enum motor_speed {
   SLOW,
