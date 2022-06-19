@@ -29,8 +29,8 @@ public:
 	OxKybot_MOTOR(int _pinDigit, int _pinAnalog);
 	void setLogger(Logger l);
 	void motorBrake();
-	void go_forward(int Speed);
-	void go_backward(int Speed);
+	void go_forward(motor_speed speed);
+	void go_backward(motor_speed speed);
 	void loop();
   
 
@@ -45,9 +45,9 @@ private:
   motor_state actualState;
   void motor_Forward_slow();
   void motor_Backward_slow();
-  void motor_Forward(int Speed);
+  void motor_Forward(motor_speed speed);
   void motor_Brake();
-  void motor_Backward(int Speed);
+  void motor_Backward(motor_speed speed);
   Logger logger;
 
 
