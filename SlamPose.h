@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <stdlib.h>
-#define MAX_POSE_SIZE 100
+#include "All_dep.h"
 class SlamPose
 {
 public:
@@ -11,30 +11,20 @@ public:
     int poseX;
     int poseY;
     int angle;
-    char *serialize()
+    void setPose(geometry_msgs::PoseStamped p)
     {
-        String stringPose = "" + String(this->poseX) + "," + String(this->poseY) + "," + String(this->angle);
-        char *bufferPose = new char[MAX_POSE_SIZE];
-        stringPose.toCharArray(bufferPose, MAX_POSE_SIZE);
-        return bufferPose;
+        this->actualPose = p;
+        this->poseX = this->actualPose.pose.position.x * POSITION_FACTOR;
+        this->poseY = this->actualPose.pose.position.y * POSITION_FACTOR;
+        this->angle = this->actualPose.pose.orientation.z * POSITION_FACTOR;
     }
     String toString()
     {
-        return "" + String(this->poseX) + "," + String(this->poseY) + "," + String(this->angle);
+        return "X=" + String(this->poseX) + ",Y=" + String(this->poseY) + ",A=" + String(this->angle);
     }
-    void deserialize( char *inbuffer)
-    {
-        char *ptr = strtok(inbuffer, ",");
-        this->poseX = atoi(ptr);
-        ptr = strtok(NULL, ",");
-        this->poseY = atoi(ptr);
-        ptr = strtok(NULL, ",");
-        this->angle = atoi(ptr);
-    }
-    const char *getType() { return "SlamOutPose"; };
-    const char *getMD5()
-    {
-      return PSTR("0825d95fdfa2c8f4bbb4e9c74bccd3fd");
-    };
+    
+private:
+    geometry_msgs::PoseStamped actualPose;
+   
 };
 #endif
