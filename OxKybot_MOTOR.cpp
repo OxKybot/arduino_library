@@ -2,10 +2,7 @@
 #include "OxKybot_MOTOR.h"
 
 OxKybot_MOTOR::OxKybot_MOTOR(){}
-OxKybot_MOTOR::setLogger(Logger l)
-{
-  this->logger = l;
-}
+
 OxKybot_MOTOR::OxKybot_MOTOR(int _pinDigit, int _pinAnalog)
 {
   this->actualSpeed = FAST;
@@ -13,6 +10,10 @@ OxKybot_MOTOR::OxKybot_MOTOR(int _pinDigit, int _pinAnalog)
   this->transitionType = NO_TRANSITION;
   this->pinDigit = _pinDigit;
   this->pinAnalog = _pinAnalog;
+}
+void OxKybot_MOTOR::setLogger(Logger l)
+{
+  this->logger = l;
 }
 void OxKybot_MOTOR::loop()
 {
