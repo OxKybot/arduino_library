@@ -45,9 +45,9 @@ private:
   motor_state actualState;
   void motor_Forward_slow();
   void motor_Backward_slow();
-  void motor_Forward(motor_speed speed);
+  void motor_Forward(int speed);
   void motor_Brake();
-  void motor_Backward(motor_speed speed);
+  void motor_Backward(int speed);
   Logger logger;
 
 
