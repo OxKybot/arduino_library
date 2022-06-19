@@ -1,6 +1,11 @@
 #include "OxKybot_MOTOR_command.h"
 
-OxKybot_MOTOR_command::OxKybot_MOTOR_command() {}
+OxKybot_MOTOR_command::OxKybot_MOTOR_command() 
+{
+  this->imu_sensor = CMPS14_imu();
+  this->motorLeft = OxKybot_MOTOR(MOE2,MOP2);
+  this->motorRight = OxKybot_MOTOR(MOE1,MOP1);
+}
 void OxKybot_MOTOR_command::init()
 {
   pinMode(MOE1, OUTPUT);
@@ -21,10 +26,7 @@ void OxKybot_MOTOR_command::init()
   Wire.begin();
 
   delay(500);
-  this->imu_sensor = CMPS14_imu();
   this->imu_sensor.init();
-  this->motorLeft = OxKybot_MOTOR(MOE2,MOP2);
-  this->motorRight = OxKybot_MOTOR(MOE1,MOP1);
   this->actualPose = SlamPose();
 }
 SlamPose OxKybot_MOTOR_command::getPosition()
