@@ -27,7 +27,7 @@ void OxKybot_MOTOR_command::init()
   this->motorRight = OxKybot_MOTOR(MOE1,MOP1);
   this->actualPose = SlamPose();
 }
-geometry_msgs::PoseStamped OxKybot_MOTOR_command::getPosition()
+SlamPose OxKybot_MOTOR_command::getPosition()
 {
   refreshPosition();
   return this->actualPose;
