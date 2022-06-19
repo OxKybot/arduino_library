@@ -7,7 +7,12 @@
 class SlamPose
 {
 public:
-    SlamPose() {}
+    SlamPose() 
+    {
+        this->poseX = 0;
+        this->poseY = 0;
+        this->angle = 0;
+    }
     int poseX;
     int poseY;
     int angle;
