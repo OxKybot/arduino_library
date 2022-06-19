@@ -8,7 +8,7 @@
 #include <std_msgs/Int16.h>
 #include <std_msgs/Empty.h>
 #include <avr/wdt.h>
-#include "SlamOutPose.h"
+#include "SlamPose.h"
 #include "Logger.h"
 #include <TimeoutCallback.h>
 
