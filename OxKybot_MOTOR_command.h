@@ -9,7 +9,7 @@ class OxKybot_MOTOR_command
 public:
 	OxKybot_MOTOR_command();
 	void init();
-	geometry_msgs::PoseStamped getPosition();
+	SlamPose getPosition();
 	void setPositionClient(ros::ServiceClient<std_msgs::String, geometry_msgs::PoseStamped>* c);
 	void setPosition(geometry_msgs::PoseStamped p);
 	void setLogger(Logger l);
