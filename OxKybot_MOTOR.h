@@ -12,15 +12,7 @@ enum motor_state {
   BACKWARD,
   STOP
   };
-enum class motor_transition_type {
-  FORWARD_TO_STOP,
-  BACKWARD_TO_STOP,
-  FORWARD_TO_BACWARD,
-  BACKWARD_TO_FORWARD,
-  STOP_TO_FORWARD,
-  STOP_TO_BACKWARD,
-  NO_TRANSITION
-  };
+
 
 class OxKybot_MOTOR
 {
@@ -41,7 +33,15 @@ private:
   int i;
   motor_transition_type transitionType;
   motor_speed actualSpeed;
-  motor_state actualState;
+  enum {
+  FORWARD_TO_STOP,
+  BACKWARD_TO_STOP,
+  FORWARD_TO_BACWARD,
+  BACKWARD_TO_FORWARD,
+  STOP_TO_FORWARD,
+  STOP_TO_BACKWARD,
+  NO_TRANSITION
+  } actualState;
   void motor_Forward_slow();
   void motor_Backward_slow();
   void motor_Forward(motor_speed speed);
