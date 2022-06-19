@@ -1,8 +1,3 @@
-ifndef __OXKYBOT_MOTOR_H__
-#define __OXKYBOT_MOTOR_H__
-
-#include "All_dep.h"
-	
 enum motor_speed {
   SLOW,
   FAST
@@ -21,6 +16,10 @@ enum motor_transition_type {
   STOP_TO_BACKWARD,
   NO_TRANSITION
   };
+ifndef __OXKYBOT_MOTOR_H__
+#define __OXKYBOT_MOTOR_H__
+
+#include "All_dep.h"
 
 class OxKybot_MOTOR
 {
