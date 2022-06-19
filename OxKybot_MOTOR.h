@@ -12,7 +12,11 @@ enum motor_state {
   BACKWARD,
   STOP
   };
-enum Class motor_transition_type {
+
+
+class OxKybot_MOTOR
+{
+enum motor_transition_type {
   FORWARD_TO_STOP,
   BACKWARD_TO_STOP,
   FORWARD_TO_BACWARD,
@@ -21,10 +25,6 @@ enum Class motor_transition_type {
   STOP_TO_BACKWARD,
   NO_TRANSITION
   };
-
-class OxKybot_MOTOR
-{
-
 public:
 	OxKybot_MOTOR(int _pinDigit, int _pinAnalog);
 	void setLogger(Logger l);
