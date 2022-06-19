@@ -30,7 +30,7 @@ public:
 
 private:
 	OxKybot_MOTOR motorLeft;
-	OxKybot_MOTOR motorRight
+	OxKybot_MOTOR motorRight;
 	unsigned int actualAngle;
 	SlamPose actualPose;
 	TimeoutCallback* securityTimer;
