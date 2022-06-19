@@ -25,6 +25,7 @@ void OxKybot_MOTOR_command::init()
   this->imu_sensor.init();
   this->motorLeft = OxKybot_MOTOR(MOE2,MOP2);
   this->motorRight = OxKybot_MOTOR(MOE1,MOP1);
+  this->actualPose = SlamPose();
 }
 geometry_msgs::PoseStamped OxKybot_MOTOR_command::getPosition()
 {
@@ -50,8 +51,8 @@ void OxKybot_MOTOR_command::setTimer(TimeoutCallback *t)
 void OxKybot_MOTOR_command::setPosition(geometry_msgs::PoseStamped p)
 {
   
-  this->actualPose = p;
-  this->logger.publish_arduino_log("position : X=" + String(this->actualPose.pose.position.x) + "Y=" +String(this->actualPose.pose.position.y) + "A=" + String(this->actualPose.pose.orientation.z));
+  this->actualPose.setPose(p);
+  this->logger.publish_arduino_log("position : " + this->actualPose.toString());
                                        
 }
 void OxKybot_MOTOR_command::setLogger(Logger l)
