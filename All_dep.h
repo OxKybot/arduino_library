@@ -22,22 +22,3 @@
 #define STEP_DURATION 1100UL
 #define POSITION_FACTOR 200
 
-enum motor_speed {
-  SLOW,
-  FAST
-  };
-enum motor_state {
-  FORWARD,
-  BACKWARD,
-  STOP
-  };
-enum motor_transition_type {
-  FORWARD_TO_STOP,
-  BACKWARD_TO_STOP,
-  FORWARD_TO_BACWARD,
-  BACKWARD_TO_FORWARD,
-  STOP_TO_FORWARD,
-  STOP_TO_BACKWARD,
-  NO_TRANSITION
-  };
-
