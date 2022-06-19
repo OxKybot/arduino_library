@@ -15,15 +15,15 @@ public:
 	void gotoAngle(int angle);
 	void resetAngle();
 	unsigned int getAngle();
-	void forward(motor_speed Speed,int angle);
-	void backward(motor_speed Speed,int angle);
-	void turn_left(motor_speed Speed);
-	void turn_right(motor_speed Speed);
+	void forward(motor_speed speed,int angle);
+	void backward(motor_speed speed,int angle);
+	void turn_left(motor_speed speed);
+	void turn_right(motor_speed speed);
 	void motorBrake();
-	void forward_joy(motor_speed Speed);
-	void backward_joy(motor_speed Speed);
-	void turn_left_joy(motor_speed Speed);
-	void turn_right_joy(motor_speed Speed);
+	void forward_joy(motor_speed speed);
+	void backward_joy(motor_speed speed);
+	void turn_left_joy(motor_speed speed);
+	void turn_right_joy(motor_speed speed);
 	void setTimer(TimeoutCallback* t);
 	void loop();
 
@@ -31,7 +31,7 @@ private:
 	OxKybot_MOTOR motorLeft;
 	OxKybot_MOTOR motorRight
 	unsigned int actualAngle;
-	geometry_msgs::PoseStamped actualPose;
+	SlamPose actualPose;
 	TimeoutCallback* securityTimer;
 	Logger logger;
 	void refreshPosition();
