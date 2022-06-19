@@ -21,7 +21,7 @@ enum transition_type{
   STOP_TO_FORWARD,
   STOP_TO_BACKWARD,
   NO_TRANSITION
-  }
+  };
 class OxKybot_MOTOR
 {
 public:
