@@ -34,6 +34,30 @@ void OxKybot_JOYSTICK_command::motor_from_Joymsg(const sensor_msgs::Joy &joy)
     motors.backward_joy(FAST);
   }
 }
+void OxKybot_JOYSTICK_command::motor_slow_from_Joymsg(const sensor_msgs::Joy &joy)
+{
+  if (joy.axes[1] == 0 && joy.axes[0] == 0)
+  {
+    motors.motorBrake();
+  }
+  if (joy.axes[1] == 1 && joy.axes[0] == 0)
+  {
+    motors.forward_joy(SLOW);
+  }
+
+  if (joy.axes[1] == 0 && joy.axes[0] == 1)
+  {
+    motors.turn_left_joy(SLOW);
+  }
+  if (joy.axes[1] == 0 && joy.axes[0] == -1)
+  {
+    motors.turn_right_joy(SLOW);
+  }
+  if (joy.axes[1] == -1 && joy.axes[0] == 0)
+  {
+    motors.backward_joy(SLOW);
+  }
+}
 void OxKybot_JOYSTICK_command::angle_from_Joymsg(const sensor_msgs::Joy &joy)
 {
 
