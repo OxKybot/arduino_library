@@ -3,7 +3,7 @@
 
 OxKybot_MOTOR::OxKybot_MOTOR(){}
 
-OxKybot_MOTOR::OxKybot_MOTOR(int _pinDigit, int _pinAnalog)
+void OxKybot_MOTOR::init(int _pinDigit, int _pinAnalog)
 {
   this->actualSpeed = FAST;
   this->actualState = STOP;
