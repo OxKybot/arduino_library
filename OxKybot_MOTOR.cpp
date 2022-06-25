@@ -107,6 +107,13 @@ void OxKybot_MOTOR::go_forward(motor_speed speed)
       }      
     }
     this->actualSpeed = speed;
+  }else
+  {
+    if(speed != SLOW)
+    {
+      motor_Forward(SPEED_VALUE);
+    }
+    this->actualSpeed = speed;
   }
   this->actualState = FORWARD;
 }
@@ -126,6 +133,13 @@ void OxKybot_MOTOR::go_backward(motor_speed speed)
         this->transitionType = BACKWARD_TO_FORWARD;
       }
       
+    }
+    
+  }else
+  {
+    if(speed != SLOW)
+    {
+      motor_Backward(SPEED_VALUE);
     }
     this->actualSpeed = speed;
   }
