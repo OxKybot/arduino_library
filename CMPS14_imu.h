@@ -1,6 +1,6 @@
 #ifndef __CMPS14_IMU__
 #define __CMPS14_IMU__
-#include "All_dep.h"
+#include <Wire.h>
 
 // Register Function
 // 0        Command register
