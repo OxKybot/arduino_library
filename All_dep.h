@@ -22,3 +22,9 @@
 #define STEP_DURATION 1100UL
 #define POSITION_FACTOR 200
 
+
+enum motor_speed {
+  SLOW,
+  FAST
+  };
+
