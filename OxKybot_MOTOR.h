@@ -26,7 +26,7 @@ class OxKybot_MOTOR
 {
 public:
 	OxKybot_MOTOR();
-	OxKybot_MOTOR(int _pinDigit, int _pinAnalog);
+	void init(int _pinDigit, int _pinAnalog);
 	void setLogger(Logger l);
 	void motorBrake();
 	void go_forward(motor_speed speed);
