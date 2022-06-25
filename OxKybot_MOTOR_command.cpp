@@ -3,8 +3,9 @@
 OxKybot_MOTOR_command::OxKybot_MOTOR_command() 
 {
   this->imu_sensor = CMPS14_imu();
-  this->motorLeft = OxKybot_MOTOR(MOE2,MOP2);
-  this->motorRight = OxKybot_MOTOR(MOE1,MOP1);
+  this->motorLeft = OxKybot_MOTOR();
+  this->motorRight = OxKybot_MOTOR();
+  this->actualPose = SlamPose();
 }
 void OxKybot_MOTOR_command::init()
 {
@@ -27,7 +28,8 @@ void OxKybot_MOTOR_command::init()
 
   delay(500);
   this->imu_sensor.init();
-  this->actualPose = SlamPose();
+  this->motorLeft.init();
+  this->motorRight.init();
 }
 SlamPose OxKybot_MOTOR_command::getPosition()
 {
