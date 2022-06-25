@@ -18,20 +18,20 @@ void OxKybot_JOYSTICK_command::motor_from_Joymsg(const sensor_msgs::Joy &joy)
   }
   if (joy.axes[1] == 1 && joy.axes[0] == 0)
   {
-    motors.forward_joy(SPEED_VALUE);
+    motors.forward_joy(FAST);
   }
 
   if (joy.axes[1] == 0 && joy.axes[0] == 1)
   {
-    motors.turn_left_joy(SPEED_VALUE);
+    motors.turn_left_joy(FAST);
   }
   if (joy.axes[1] == 0 && joy.axes[0] == -1)
   {
-    motors.turn_right_joy(SPEED_VALUE);
+    motors.turn_right_joy(FAST);
   }
   if (joy.axes[1] == -1 && joy.axes[0] == 0)
   {
-    motors.backward_joy(SPEED_VALUE);
+    motors.backward_joy(FAST);
   }
 }
 void OxKybot_JOYSTICK_command::angle_from_Joymsg(const sensor_msgs::Joy &joy)
