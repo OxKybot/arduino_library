@@ -18,6 +18,10 @@ enum transition_type{
   STOP_TO_BACKWARD,
   NO_TRANSITION
   };
+enum motor_speed {
+  SLOW,
+  FAST
+  };
 class OxKybot_MOTOR
 {
 public:
