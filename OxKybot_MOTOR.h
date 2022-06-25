@@ -3,10 +3,6 @@
 
 #include "All_dep.h"
 
-enum motor_speed {
-  SLOW,
-  FAST
-  };
 enum motor_state {
   FORWARD,
   BACKWARD,
