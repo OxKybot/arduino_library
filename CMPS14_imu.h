@@ -1,7 +1,7 @@
 #ifndef __CMPS14_IMU__
 #define __CMPS14_IMU__
 #include <Wire.h>
-#include <Arduino. h>
+#include <Arduino.h>
 
 // Register Function
 // 0        Command register
