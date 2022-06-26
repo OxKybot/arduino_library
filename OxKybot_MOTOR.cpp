@@ -17,7 +17,6 @@ void OxKybot_MOTOR::setLogger(Logger l)
 }
 void OxKybot_MOTOR::loop()
 {
-  this->logger.publish_arduino_log("transition = "+String(this->transitionType));
   if(this->transitionType == NO_TRANSITION && this->actualSpeed == SLOW)
   {
     if(this->actualState == FORWARD)
