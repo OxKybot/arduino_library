@@ -19,6 +19,6 @@ public:
 private:
     OxKybot_MOTOR_command motors;
     OxKybot_ARM_command arm;
-    void motor_from_joy(motor_speed speed);
+    void motor_from_joy(motor_speed speed,const sensor_msgs::Joy &joy);
 };
 #endif
