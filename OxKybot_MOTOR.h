@@ -49,7 +49,7 @@ private:
   void motor_Brake();
   void motor_Backward(int speed);
   Logger logger;
-
+  boolean isRuningSlow;
 
 };
 #endif
