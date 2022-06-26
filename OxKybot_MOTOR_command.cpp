@@ -2,10 +2,10 @@
 
 OxKybot_MOTOR_command::OxKybot_MOTOR_command() 
 {
-  this->imu_sensor = CMPS14_imu();
+  /*this->imu_sensor = CMPS14_imu();
   this->motorLeft = OxKybot_MOTOR();
   this->motorRight = OxKybot_MOTOR();
-  this->actualPose = SlamPose();
+  this->actualPose = SlamPose();*/
 }
 void OxKybot_MOTOR_command::init()
 {
