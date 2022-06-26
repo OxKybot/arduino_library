@@ -12,13 +12,13 @@ void OxKybot_JOYSTICK_command::set_arm(OxKybot_ARM_command _arm)
 }
 void OxKybot_JOYSTICK_command::motor_from_Joymsg(const sensor_msgs::Joy &joy)
 {
-  motor_from_joy(FAST);
+  motor_from_joy(FAST,joy);
 }
 void OxKybot_JOYSTICK_command::motor_slow_from_Joymsg(const sensor_msgs::Joy &joy)
 {
-  motor_from_joy(SLOW);
+  motor_from_joy(SLOW,joy);
 }
-void OxKybot_JOYSTICK_command::motor_from_joy(motor_speed speed)
+void OxKybot_JOYSTICK_command::motor_from_joy(motor_speed speed, const sensor_msgs::Joy &joy)
 {
   if (joy.axes[1] == 0 && joy.axes[0] == 0)
   {
