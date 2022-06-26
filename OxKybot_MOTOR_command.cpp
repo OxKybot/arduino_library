@@ -38,7 +38,6 @@ SlamPose OxKybot_MOTOR_command::getPosition()
 }
 void OxKybot_MOTOR_command::loop()
 {
-  this->logger.publish_arduino_log("position : " + this->actualPose.toString());
   this->motorLeft.loop();
   this->motorRight.loop();
 }
