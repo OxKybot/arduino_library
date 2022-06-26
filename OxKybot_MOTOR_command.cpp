@@ -28,8 +28,8 @@ void OxKybot_MOTOR_command::init()
 
   delay(500);
   this->imu_sensor.init();
-  this->motorLeft.init();
-  this->motorRight.init();
+  this->motorLeft.init(MOE2,MOP2);
+  this->motorRight.init(MOE1,MOP1);
 }
 SlamPose OxKybot_MOTOR_command::getPosition()
 {
