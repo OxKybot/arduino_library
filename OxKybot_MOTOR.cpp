@@ -46,6 +46,8 @@ void OxKybot_MOTOR::loop()
   }
   if(this->transitionType == STOP_TO_FORWARD)
   {
+      this->logger.publish_arduino_log("transition in loop");
+
     for(i=0; i<NB_PULSE_TRANSITION;i++)
     {
       motor_Forward_slow();
@@ -93,7 +95,7 @@ void OxKybot_MOTOR::loop()
 }
 void OxKybot_MOTOR::go_forward(motor_speed speed)
 {
-  this->logger.publish_arduino_log("transition = "+String(this->transitionType)+" actual speed = "+String(this->actualSpeed)+" speed = "+String(speed)+" state = "+String(this->actualState));
+  //this->logger.publish_arduino_log("transition = "+String(this->transitionType)+" actual speed = "+String(this->actualSpeed)+" speed = "+String(speed)+" state = "+String(this->actualState));
   if(this->actualSpeed!= SLOW && speed!= SLOW)
   {
     if(this->actualState!=FORWARD)
@@ -101,6 +103,8 @@ void OxKybot_MOTOR::go_forward(motor_speed speed)
       if(this->actualState == STOP)
       {
         this->transitionType = STOP_TO_FORWARD;
+          this->logger.publish_arduino_log("transition = "+String(this->transitionType));
+
       }
       else
       {
@@ -171,6 +175,8 @@ void OxKybot_MOTOR::motorBrake()
 }
 void OxKybot_MOTOR::motor_Forward_slow()
 {
+  this->logger.publish_arduino_log("slow");
+
   motor_Forward(MIN_SPEED_VALUE);
   delay(DELAY_TO_RUN);
   motor_Brake();
@@ -189,6 +195,8 @@ void OxKybot_MOTOR::motor_Backward_slow()
 }
 void OxKybot_MOTOR::motor_Forward(int Speed)
 {
+  this->logger.publish_arduino_log("pin digit = " String(this->pinDigit)+" pin analog = " String(this->pinAnalog));
+
   digitalWrite(this->pinDigit, LOW);
   analogWrite(this->pinAnalog, Speed);
 }
