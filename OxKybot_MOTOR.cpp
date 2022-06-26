@@ -103,6 +103,7 @@ void OxKybot_MOTOR::go_forward(motor_speed speed)
       if(this->actualState == STOP)
       {
         this->transitionType = STOP_TO_FORWARD;
+        boolean tmp = this->transitionType == STOP_TO_FORWARD;
           this->logger.publish_arduino_log("transition = "+String(this->transitionType));
 
       }
