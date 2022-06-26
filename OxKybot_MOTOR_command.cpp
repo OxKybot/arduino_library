@@ -2,10 +2,10 @@
 
 OxKybot_MOTOR_command::OxKybot_MOTOR_command() 
 {
-  /*this->imu_sensor = CMPS14_imu();
+  this->imu_sensor = CMPS14_imu();
   this->motorLeft = OxKybot_MOTOR();
   this->motorRight = OxKybot_MOTOR();
-  this->actualPose = SlamPose();*/
+  this->actualPose = SlamPose();
 }
 void OxKybot_MOTOR_command::init()
 {
@@ -164,7 +164,7 @@ void OxKybot_MOTOR_command::turn_right_joy(motor_speed speed)
 }
 void OxKybot_MOTOR_command::forward_joy(motor_speed speed)
 {
-  this->logger.publish_arduino_log("speed motor = ");
+  this->logger.publish_arduino_log("speed motor = "+ String(speed));
   this->motorLeft.go_forward(speed);
   this->motorRight.go_forward(speed);
 }
