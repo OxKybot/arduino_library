@@ -32,6 +32,7 @@ void OxKybot_MOTOR::loop()
 }
 void OxKybot_MOTOR::go_forward(motor_speed speed)
 {
+  logger.publish_arduino_log("go_forward at speed : " + String(speed));
   if(this->actualSpeed == FAST && speed == FAST)
   {
     if(this->actualState!=FORWARD)
@@ -75,6 +76,7 @@ void OxKybot_MOTOR::go_forward(motor_speed speed)
 
 void OxKybot_MOTOR::go_backward(motor_speed speed)
 {
+  logger.publish_arduino_log("go_backward at speed : " + String(speed));
   if(this->actualSpeed!= SLOW && speed!= SLOW)
   {
     if(this->actualState!=BACKWARD)
