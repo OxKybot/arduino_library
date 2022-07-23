@@ -20,7 +20,7 @@ void OxKybot_MOTOR::loop()
 {
   if(this->isRuningSlow)
   {
-    logger.publish_arduino_log("isRuningSlow : " + String(this->isRuningSlow));
+    //logger.publish_arduino_log("isRuningSlow : " + String(this->isRuningSlow));
     if(this->actualState == FORWARD)
     {
       motor_Forward_slow();
@@ -33,7 +33,7 @@ void OxKybot_MOTOR::loop()
 }
 void OxKybot_MOTOR::go_forward(motor_speed speed)
 {
-  logger.publish_arduino_log("go_forward at speed : " + String(speed));
+  //logger.publish_arduino_log("go_forward at speed : " + String(speed));
   if(this->actualSpeed == FAST && speed == FAST)
   {
     if(this->actualState!=FORWARD)
@@ -77,7 +77,7 @@ void OxKybot_MOTOR::go_forward(motor_speed speed)
 
 void OxKybot_MOTOR::go_backward(motor_speed speed)
 {
-  logger.publish_arduino_log("go_backward at speed : " + String(speed));
+  //logger.publish_arduino_log("go_backward at speed : " + String(speed));
   if(this->actualSpeed!= SLOW && speed!= SLOW)
   {
     if(this->actualState!=BACKWARD)
@@ -172,7 +172,7 @@ void OxKybot_MOTOR::motor_Backward_slow()
 }
 void OxKybot_MOTOR::motor_Forward(int Speed)
 {
-logger.publish_arduino_log("motor_Forward at speed : " + String(Speed) + " pd: "+String(this->pinDigit)+ " pa: "+String(this->pinAnalog));  
+//logger.publish_arduino_log("motor_Forward at speed : " + String(Speed) + " pd: "+String(this->pinDigit)+ " pa: "+String(this->pinAnalog));  
 
   digitalWrite(this->pinDigit, LOW);
   analogWrite(this->pinAnalog, Speed);
@@ -180,7 +180,7 @@ logger.publish_arduino_log("motor_Forward at speed : " + String(Speed) + " pd: "
 
 void OxKybot_MOTOR::motor_Backward(int Speed)
 {
-  logger.publish_arduino_log("motor_Backward at speed : " + String(Speed) + " pd: "+String(this->pinDigit)+ " pa: "+String(this->pinAnalog));  
+  //logger.publish_arduino_log("motor_Backward at speed : " + String(Speed) + " pd: "+String(this->pinDigit)+ " pa: "+String(this->pinAnalog));  
 
   digitalWrite(this->pinDigit, HIGH);
   analogWrite(this->pinAnalog, Speed);
