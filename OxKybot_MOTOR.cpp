@@ -20,6 +20,7 @@ void OxKybot_MOTOR::loop()
 {
   if(this->isRuningSlow)
   {
+    logger.publish_arduino_log("isRuningSlow : " + String(this->isRuningSlow));
     if(this->actualState == FORWARD)
     {
       motor_Forward_slow();
