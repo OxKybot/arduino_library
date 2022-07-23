@@ -32,6 +32,7 @@ public:
 	void go_forward(motor_speed speed);
 	void go_backward(motor_speed speed);
 	void loop();
+	boolean isRuningSlow;
   
 
 
@@ -49,7 +50,7 @@ private:
   void motor_Brake();
   void motor_Backward(int speed);
   Logger logger;
-  boolean isRuningSlow;
+  
 
 };
 #endif
