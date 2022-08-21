@@ -12,7 +12,7 @@
 #include "Logger.h"
 #include <TimeoutCallback.h>
 
-#define SPEED_VALUE 128
+#define SPEED_VALUE 127
 #define MIN_SPEED_VALUE 128
 #define NB_PULSE_TRANSITION 2
 #define DELAY_TO_STOP 20
