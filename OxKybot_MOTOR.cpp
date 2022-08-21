@@ -173,17 +173,17 @@ void OxKybot_MOTOR::motor_Backward_slow()
 void OxKybot_MOTOR::motor_Forward(int Speed)
 {
 //logger.publish_arduino_log("motor_Forward at speed : " + String(Speed) + " pd: "+String(this->pinDigit)+ " pa: "+String(this->pinAnalog));  
-
-  digitalWrite(this->pinDigit, LOW);
   analogWrite(this->pinAnalog, Speed);
+  digitalWrite(this->pinDigit, LOW);
+  
 }
 
 void OxKybot_MOTOR::motor_Backward(int Speed)
 {
   //logger.publish_arduino_log("motor_Backward at speed : " + String(Speed) + " pd: "+String(this->pinDigit)+ " pa: "+String(this->pinAnalog));  
-
-  digitalWrite(this->pinDigit, HIGH);
+  
   analogWrite(this->pinAnalog, Speed);
+  digitalWrite(this->pinDigit, HIGH);
 }
 void OxKybot_MOTOR::motor_Brake()
 {
