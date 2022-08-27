@@ -33,8 +33,8 @@ void OxKybot_MOTOR::loop()
       case FORWARD:
         motor_Forward(this->actualSpeed);
         break;
-        case FORWARD:
-        motor_Forward(this->actualSpeed);
+       case BCKWARD:
+        motor_Backward(this->actualSpeed);
         break;
     }
   }
