@@ -25,12 +25,8 @@ public:
 	void backward_joy();
 	void turn_left_joy();
 	void turn_right_joy();
-	void motor_left_motorBrake();
-	void motor_left_forward_joy(int speedPercent);
-	void motor_left_backward_joy(int speedPercent);
-	void motor_right_motorBrake();
-	void motor_right_forward_joy(int speedPercent);
-	void motor_right_backward_joy(int speedPercent);
+	void motor_left__joy(int SingnedSpeedPercent);
+	void motor_right_joy(int SingnedSpeedPercent);
 	
 	void setTimer(TimeoutCallback* t);
 	void loop();
