@@ -91,54 +91,54 @@ void OxKybot_JOYSTICK_command::axe_from_Joymsg(const sensor_msgs::Joy &joy, bool
 {
   if (isLeft)
   {
-    if (joy.axes[1] == 0)
+    if (joy.axes[8] == 0)
     {
       arm.desL_Brake();
     }
-    if (joy.axes[1] == 1)
+    if (joy.axes[8] == 1)
     {
       arm.desL_Backward(SPEED_VALUE);
     }
-    if (joy.axes[1] == -1)
+    if (joy.axes[8] == -1)
     {
       arm.desL_Forward(SPEED_VALUE);
     }
-    if (joy.axes[0] == 0)
+    if (joy.axes[7] == 0)
     {
       arm.axeL_Brake();
     }
-    if (joy.axes[0] == 1)
+    if (joy.axes[7] == 1)
     {
       arm.axeL_Backward(SPEED_VALUE);
     }
-    if (joy.axes[0] == -1)
+    if (joy.axes[7] == -1)
     {
       arm.axeL_Forward(SPEED_VALUE);
     }
   }
   else
   {
-    if (joy.axes[1] == 0)
+    if (joy.axes[8] == 0)
     {
       arm.desR_Brake();
     }
-    if (joy.axes[1] == 1)
+    if (joy.axes[8] == 1)
     {
       arm.desR_Backward(SPEED_VALUE);
     }
-    if (joy.axes[1] == -1)
+    if (joy.axes[8] == -1)
     {
       arm.desR_Forward(SPEED_VALUE);
     }
-    if (joy.axes[0] == 0)
+    if (joy.axes[7] == 0)
     {
       arm.axeR_Brake();
     }
-    if (joy.axes[0] == 1)
+    if (joy.axes[7] == 1)
     {
       arm.axeR_Backward(SPEED_VALUE);
     }
-    if (joy.axes[0] == -1)
+    if (joy.axes[7] == -1)
     {
       arm.axeR_Forward(SPEED_VALUE);
     }
