@@ -12,7 +12,7 @@ void OxKybot_JOYSTICK_command::set_arm(OxKybot_ARM_command _arm)
 {
     arm = _arm;
 }
-void OxKybot_JOYSTICK_command::motor_from_joy(const sensor_msgs::Joy &joy)
+void OxKybot_JOYSTICK_command::motor_from_Joymsg(const sensor_msgs::Joy &joy)
 {
     gestionCroixDirectionnel(joy.axes[7],joy.axes[8]);
     motors.motor_left_joy(joy.axes[2]*100);
