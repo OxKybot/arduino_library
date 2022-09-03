@@ -152,24 +152,52 @@ void OxKybot_MOTOR_command::motorBrake()
   this->motorRight.motorBrake();
   wdt_reset();
 }
-void OxKybot_MOTOR_command::turn_left_joy(motor_speed speed)
+/******************JOY COMMAND******************/
+
+void OxKybot_MOTOR_command::turn_left_joy()
 {
-  this->motorRight.go_forward(speed);
-  this->motorLeft.go_backward(speed);
+  this->motorRight.go_forward(100);
+  this->motorLeft.go_backward(100);
 }
-void OxKybot_MOTOR_command::turn_right_joy(motor_speed speed)
+void OxKybot_MOTOR_command::turn_right_joy()
 {
-  this->motorLeft.go_forward(speed);
-  this->motorRight.go_backward(speed);
+  this->motorLeft.go_forward(100);
+  this->motorRight.go_backward(100);
 }
-void OxKybot_MOTOR_command::forward_joy(motor_speed speed)
+void OxKybot_MOTOR_command::forward_joy()
 {
   this->logger.publish_arduino_log("speed motor = "+ String(speed));
-  this->motorLeft.go_forward(speed);
-  this->motorRight.go_forward(speed);
+  this->motorLeft.go_forward(100);
+  this->motorRight.go_forward(100);
 }
 void OxKybot_MOTOR_command::backward_joy(motor_speed speed)
 {
-  this->motorLeft.go_backward(speed);
-  this->motorRight.go_backward(speed);
+  this->motorLeft.go_backward(100);
+  this->motorRight.go_backward(100);
 }
+void OxKybot_MOTOR_command::motor_left_motorBrake()
+{
+  this->motorLeft.motorBrake();
+}
+void OxKybot_MOTOR_command::motor_left_forward_joy(int speedPercent)
+{
+  this->motorLeft.go_forward(speedPercent);
+}
+void OxKybot_MOTOR_command::motor_left_backward_joy(int speedPercent)
+{
+  this->motorLeft.go_backward(speedPercent);
+}
+
+void OxKybot_MOTOR_command::motor_right_motorBrake()
+{
+  this->motorRight.motorBrake();
+}
+void OxKybot_MOTOR_command::motor_right_forward_joy(int speedPercent)
+{
+  this->motorRight.go_forward(speedPercent);
+}
+void OxKybot_MOTOR_command::motor_right_backward_joy(int speedPercent)
+{
+  this->motorRight.go_backward(speedPercent);
+}
+
