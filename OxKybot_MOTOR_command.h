@@ -21,10 +21,10 @@ public:
 	void turn_left(int speed);
 	void turn_right(int speed);
 	void motorBrake();
-	void forward_joy();
-	void backward_joy();
-	void turn_left_joy();
-	void turn_right_joy();
+	void forward_joy(int speed);
+	void backward_joy(int speed);
+	void turn_left_joy(int speed);
+	void turn_right_joy(int speed);
 	void motor_left_joy(int SingnedSpeedPercent);
 	void motor_right_joy(int SingnedSpeedPercent);
 	
