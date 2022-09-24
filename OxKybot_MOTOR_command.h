@@ -16,10 +16,10 @@ public:
 	void gotoAngle(int angle);
 	void resetAngle();
 	unsigned int getAngle();
-	void forward(motor_speed speed,int angle);
-	void backward(motor_speed speed,int angle);
-	void turn_left(motor_speed speed);
-	void turn_right(motor_speed speed);
+	void forward(int speed,int angle);
+	void backward(int speed,int angle);
+	void turn_left(int speed);
+	void turn_right(int speed);
 	void motorBrake();
 	void forward_joy();
 	void backward_joy();
