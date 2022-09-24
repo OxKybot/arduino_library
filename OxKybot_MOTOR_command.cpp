@@ -92,7 +92,7 @@ void OxKybot_MOTOR_command::gotoAngle(int angle)
       logger.publish_arduino_log("MOTOR turn left");
       while (gotoAngleD1 > DELAT_ANGLE)
       {
-        turn_left(SLOW);
+        turn_left(40);
         this->actualAngle = this->imu_sensor.getBearing();
         gotoAngleD1 = (MAX_ANGLE + angle - actualAngle) % MAX_ANGLE;
         wdt_reset();
@@ -103,7 +103,7 @@ void OxKybot_MOTOR_command::gotoAngle(int angle)
       logger.publish_arduino_log("MOTOR turn right");
       while (gotoAngleD2 > DELAT_ANGLE)
       {
-        turn_right(SLOW);
+        turn_right(40);
         this->actualAngle = this->imu_sensor.getBearing();
         gotoAngleD2 = (MAX_ANGLE + actualAngle - angle) % MAX_ANGLE;
         wdt_reset();
