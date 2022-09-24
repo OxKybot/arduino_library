@@ -88,7 +88,7 @@ void OxKybot_MOTOR::go_forward(int speed)
 
 void OxKybot_MOTOR::go_backward(int speed)
 {
-  if(this->actualState != BCKWARD || this->goalSpeed != speed)
+  if(this->actualState != BACKWARD || this->goalSpeed != speed)
   {
     this->transitionType = this->transitionStateMatrix[this->actualState][BCKWARD];
     this->goalSpeed= speed;
