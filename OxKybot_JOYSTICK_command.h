@@ -20,6 +20,5 @@ private:
     OxKybot_ARM_command arm;
     void gestionCroixDirectionnel(int hori, int verti);
     boolean isDirectionStarted;
-    void motor_from_Joymsg(const sensor_msgs::Joy &joy);
 };
 #endif
