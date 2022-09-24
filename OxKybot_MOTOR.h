@@ -50,7 +50,7 @@ private:
 	transition_type transitionType;
 	motor_state actualState;
 	void doStep();
-	void commandChanged();
+	void commandChanged(transition_type type);
 	void motor_Forward(int speedPercent);
 	void motor_Brake();
 	void motor_Backward(int speedPercent);
