@@ -53,7 +53,7 @@ void OxKybot_MOTOR::doStep()
       case FORWARD:
         motor_Forward(this->actualSpeed);
         break;
-       case BCKWARD:
+       case BACKWARD:
         motor_Backward(this->actualSpeed);
         break;
       default:
@@ -70,7 +70,7 @@ void OxKybot_MOTOR::loop()
   if(this->actualState ! = STOP && this->transitionType != NO_TRANSITION)
   {
     this->currentMillis =  millis();
-    if (((this->currentMillis - this->startMillis) % this->duration) == 0)
+    if (((this->currentMillis - this->startMillis) % this->stepDuration) == 0)
     {
       doStep();
     }
