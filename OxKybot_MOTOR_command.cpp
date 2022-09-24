@@ -118,27 +118,27 @@ unsigned int OxKybot_MOTOR_command::getAngle()
   this->actualAngle = this->imu_sensor.getBearing();
   return this->actualAngle;
 }
-void OxKybot_MOTOR_command::turn_left(motor_speed speed)
+void OxKybot_MOTOR_command::turn_left(int speed)
 {
   this->motorRight.go_forward(speed);
   this->motorLeft.go_backward(speed);
   securityTimer->start();
 }
-void OxKybot_MOTOR_command::turn_right(motor_speed speed)
+void OxKybot_MOTOR_command::turn_right(int speed)
 {
   this->motorLeft.go_forward(speed);
   this->motorRight.go_backward(speed);
   securityTimer->start();
 }
 
-void OxKybot_MOTOR_command::forward(motor_speed speed, int angle)
+void OxKybot_MOTOR_command::forward(int speed, int angle)
 {
   gotoAngle(angle);
   this->motorLeft.go_forward(speed);
   this->motorRight.go_forward(speed);
   securityTimer->start();
 }
-void OxKybot_MOTOR_command::backward(motor_speed speed, int angle)
+void OxKybot_MOTOR_command::backward(int speed, int angle)
 {
   gotoAngle(angle);
   this->motorLeft.go_backward(speed);
@@ -170,7 +170,7 @@ void OxKybot_MOTOR_command::forward_joy()
   this->motorLeft.go_forward(100);
   this->motorRight.go_forward(100);
 }
-void OxKybot_MOTOR_command::backward_joy(motor_speed speed)
+void OxKybot_MOTOR_command::backward_joy(int speed)
 {
   this->motorLeft.go_backward(100);
   this->motorRight.go_backward(100);
