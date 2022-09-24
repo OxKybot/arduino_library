@@ -154,25 +154,25 @@ void OxKybot_MOTOR_command::motorBrake()
 }
 /******************JOY COMMAND******************/
 
-void OxKybot_MOTOR_command::turn_left_joy(int speed)
+void OxKybot_MOTOR_command::turn_left_joy()
 {
-  this->motorRight.go_forward(speed);
-  this->motorLeft.go_backward(speed);
+  this->motorRight.go_forward(100);
+  this->motorLeft.go_backward(100);
 }
-void OxKybot_MOTOR_command::turn_right_joy(int speed)
+void OxKybot_MOTOR_command::turn_right_joy()
 {
-  this->motorLeft.go_forward(speed);
-  this->motorRight.go_backward(speed);
+  this->motorLeft.go_forward(100);
+  this->motorRight.go_backward(100);
 }
-void OxKybot_MOTOR_command::forward_joy(int speed)
+void OxKybot_MOTOR_command::forward_joy()
 {
-  this->motorLeft.go_forward(speed);
-  this->motorRight.go_forward(speed);
+  this->motorLeft.go_forward(100);
+  this->motorRight.go_forward(100);
 }
-void OxKybot_MOTOR_command::backward_joy(int speed)
+void OxKybot_MOTOR_command::backward_joy()
 {
-  this->motorLeft.go_backward(speed);
-  this->motorRight.go_backward(speed);
+  this->motorLeft.go_backward(100);
+  this->motorRight.go_backward(100);
 }
 void OxKybot_MOTOR_command::motor_left_joy(int SingnedSpeedPercent)
 {
