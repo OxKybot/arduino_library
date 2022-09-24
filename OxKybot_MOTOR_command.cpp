@@ -166,7 +166,6 @@ void OxKybot_MOTOR_command::turn_right_joy()
 }
 void OxKybot_MOTOR_command::forward_joy()
 {
-  this->logger.publish_arduino_log("speed motor = "+ String(speed));
   this->motorLeft.go_forward(100);
   this->motorRight.go_forward(100);
 }
