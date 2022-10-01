@@ -129,5 +129,5 @@ void OxKybot_MOTOR::motor_Brake()
 }
 int OxKybot_MOTOR::calculateSpeed(int speedPercent)
 {
-  return MIN_SPEED_VALUE + (SPEED_VALUE-MIN_SPEED_VALUE)*(speedPercent/100);
+  return (SPEED_VALUE-MIN_SPEED_VALUE)*speedPercent/100+MIN_SPEED_VALUE;
 }
